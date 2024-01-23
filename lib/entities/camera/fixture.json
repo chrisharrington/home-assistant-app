@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "access_token": "a8c6cabd9a2a52c191c8cdc1a48c721dc0eb38f61e7d74723fc39409513a648e",
+        "device_class": "camera",
+        "entity_picture": "/api/camera_proxy/camera.driveway?token=a8c6cabd9a2a52c191c8cdc1a48c721dc0eb38f61e7d74723fc39409513a648e",
+        "friendly_name": "Driveway",
+        "restream_type": "none",
+        "supported_features": 0
+    },
+    "context": {
+        "id": "01HKGEQD71B2G8XA0XYPN4XVQM",
+        "parent_id": null,
+        "user_id": null
+    },
+    "entity_id": "camera.driveway",
+    "last_changed": "2024-01-06T15:06:43.450Z",
+    "last_updated": "2024-01-06T22:36:32.865Z",
+    "state": "recording"
+}

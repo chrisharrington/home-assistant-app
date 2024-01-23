@@ -1,0 +1,25 @@
+{
+    "entity_id": "person.chris_harrington",
+    "state": "home",
+    "attributes": {
+        "editable": true,
+        "id": "chris_harrington",
+        "latitude": 51.1749714,
+        "longitude": -114.1287681,
+        "gps_accuracy": 100,
+        "source": "device_tracker.chris_pixel_8",
+        "user_id": "d23445d49a684188bd221ca830631437",
+        "device_trackers": [
+            "device_tracker.chris_pixel_8"
+        ],
+        "entity_picture": "/api/image/serve/db3d67d9fd8cc69b6033f4a4e4ddcb66/512x512",
+        "friendly_name": "Chris Harrington"
+    },
+    "context": {
+        "id": "01HKFSYE7DGSJE381WNQYGASM0",
+        "parent_id": null,
+        "user_id": null
+    },
+    "last_changed": "2024-01-06T15:06:16.024Z",
+    "last_updated": "2024-01-06T16:33:23.181Z"
+}

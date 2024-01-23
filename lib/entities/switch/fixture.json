@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "friendly_name": "Bar",
+        "icon": "mdi:lightbulb"
+    },
+    "context": {
+        "id": "01HKFMZF1SWFHX712PNP80AYPM",
+        "parent_id": null,
+        "user_id": null
+    },
+    "entity_id": "switch.basement_bar",
+    "last_changed": "2024-01-06T15:06:33.913Z",
+    "last_updated": "2024-01-06T15:06:33.913Z",
+    "state": "off"
+}
