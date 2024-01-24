@@ -15,9 +15,9 @@ import { CameraScreen } from '@lib/screens/camera';
 import { HomeScreen } from '@lib/screens/home';
 import { MapScreen } from '@lib/screens/map';
 import { UserScreen } from '@lib/screens/user';
+import { LoaderBoundary } from '@lib/components/loaderBoundary';
 import { connect, useEntities } from '@lib/data/homeAssistant';
 import '@lib/common/date';
-import { LoaderBoundary } from '@lib/components/loaderBoundary';
 
 LogBox.ignoreLogs(['new NativeEventEmitter()']);
 
@@ -27,10 +27,9 @@ const entitiesResource = connect();
 
 export default function App() {
     const { session } = useSession(),
-        toast = useRef<ToastHandle>(null),
-        [loading, setLoading] = useState<boolean>(true);
+        toast = useRef<ToastHandle>(null);
     
-    const [fontsLoaded ] = useFonts({
+    useFonts({
         'Open Sans': require('./assets/OpenSans.ttf'),
         'Lato Regular': require('./assets/Lato-Regular.ttf'),
         'Lato Bold': require('./assets/Lato-Bold.ttf')
@@ -41,11 +40,6 @@ export default function App() {
     useEffect(() => {
         lockAsync(OrientationLock.PORTRAIT);
     }, []);
-
-    useEffect(() => {
-        if (fontsLoaded)
-            setLoading(false);
-    }, [fontsLoaded]);
 
     return <PortalProvider>
         <Toast
@@ -63,6 +57,7 @@ export default function App() {
     </PortalProvider>;
 
     function Main() {
+        throw new Error();
         const entities = entitiesResource.read();
         
         useMemo(() => {
@@ -117,7 +112,7 @@ export default function App() {
     function ErrorFallback() {
         return <View style={styles.error}>
             <Text style={styles.errorTitle}>Uh oh!</Text>
-            <Text style={styles.errorText}>We've run into a problem loading entities from Home Assistant. Please try again later.</Text>
+            <Text style={styles.errorText}>We've run into a problem. Please try again later.</Text>
         </View>;
     }
 }
@@ -137,12 +132,7 @@ const styles = StyleSheet.create({
     },
 
     error: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-        zIndex: 2,
+        flex: 1,
         backgroundColor: colours.background1.hex(),
         padding: 25,
         marginTop: NativeStatusBar.currentHeight
