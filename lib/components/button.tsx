@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
 
     label: {
         textAlign: 'center',
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: 'Lato Bold',
         textTransform: 'uppercase',
-        color: colours.text1.hex()
+        color: colours.background1.hex()
     }
 });
