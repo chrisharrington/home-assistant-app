@@ -46,6 +46,9 @@ export default {
             eas: {
                 projectId: '20fb2b5b-6345-4e6c-846a-7391b1f085de'
             }
+        },
+        updates: {
+            url: 'https://u.expo.dev/20fb2b5b-6345-4e6c-846a-7391b1f085de'
         }
     }
 }
