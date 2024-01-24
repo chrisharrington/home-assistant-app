@@ -21,6 +21,9 @@ export async function getEvents(cameraName: string, after: number, before: numbe
         }
     });
 
+    if (!response.ok)
+        throw new Error(`Failed to get events: ${response.status} ${response.statusText}`);
+
     const events = await response.json() as FrigateEvent[];
     return events.sort((a, b) => b.start_time - a.start_time);
 }

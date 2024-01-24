@@ -57,7 +57,6 @@ export default function App() {
     </PortalProvider>;
 
     function Main() {
-        throw new Error();
         const entities = entitiesResource.read();
         
         useMemo(() => {

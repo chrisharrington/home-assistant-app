@@ -21,13 +21,8 @@ type Props = {
 
 export const CameraScreen = (props: Props) => {
     const { toast } = useContext(StateContext),
-        entities = useEntities(),
-        camera = entities.id<Camera>(props.route?.params?.cameraName);
-    
-    if (!camera)
-        return null;
-
-    const [events, setEvents] = useState<FrigateEvent[]>([]),
+        cameraName = props.route?.params?.cameraName,
+        [events, setEvents] = useState<FrigateEvent[]>([]),
         [date, setDate] = useState<Dayjs>(dayjs()),
         [loading, setLoading] = useState<boolean>(false),
         [refreshing, setRefreshing] = useState<boolean>(false),
@@ -92,9 +87,6 @@ export const CameraScreen = (props: Props) => {
 
     async function load(refresh: boolean = false) {
         try {
-            if (!camera?.attributes.friendly_name)
-                return;
-
             if (refresh)
                 setRefreshing(true);
             else {
@@ -105,7 +97,7 @@ export const CameraScreen = (props: Props) => {
             const after = date.startOf('day').unix(),
                 before = date.endOf('day').unix();
 
-            setEvents(await getEvents(camera.attributes.friendly_name, after, before));
+            setEvents(await getEvents(cameraName, after, before));
             setLoading(false);
             setRefreshing(false);
         } catch(e) {
