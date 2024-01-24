@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, Text, ActivityIndicator, Image, Pressable } from 'react-native';
 import dayjs from 'dayjs';
 import { StyleSheet } from '@lib/stylesheet';
 import colours from '@lib/colours';
 import { getWeather } from '@lib/data/external/weather';
-import { StateContext } from '@lib/context';
 import { LoaderBoundary } from '@lib/components/loaderBoundary';
 import { useSession } from '@lib/common/session';
 import Config from '@lib/config';
@@ -14,8 +13,7 @@ import { StackNavigationProps } from '@lib/models';
 const weatherResource = getWeather();
 
 export const Header = () => {
-    const { toast } = useContext(StateContext),
-        { session } = useSession(),
+    const { session } = useSession(),
         { navigate } = useNavigation<StackNavigationProps>();
 
     return <View style={styles.container}>
@@ -35,7 +33,6 @@ export const Header = () => {
             <LoaderBoundary
                 loadingFallback={<ActivityIndicator style={styles.weatherLoader} size={24} color={colours.primary.hex()} />}
                 errorFallback={<Text style={styles.weatherFallback}>An error has occurred while retrieving the weather.</Text>}
-                onError={() => toast.error('An error has occurred while retrieving the weather.')}
             >
                 <Weather />
             </LoaderBoundary>

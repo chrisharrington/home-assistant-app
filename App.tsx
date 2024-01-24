@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View, StatusBar as NativeStatusBar, LogBox } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ActivityIndicator, StyleSheet, View, StatusBar as NativeStatusBar, LogBox, Text } from 'react-native';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PortalProvider } from '@gorhom/portal';
@@ -15,14 +15,15 @@ import { CameraScreen } from '@lib/screens/camera';
 import { HomeScreen } from '@lib/screens/home';
 import { MapScreen } from '@lib/screens/map';
 import { UserScreen } from '@lib/screens/user';
-import { connect } from '@lib/data/homeAssistant';
+import { connect, useEntities } from '@lib/data/homeAssistant';
 import '@lib/common/date';
+import { LoaderBoundary } from '@lib/components/loaderBoundary';
 
 LogBox.ignoreLogs(['new NativeEventEmitter()']);
 
 const Stack = createNativeStackNavigator<StackParamsList>();
 
-connect();
+const entitiesResource = connect();
 
 export default function App() {
     const { session } = useSession(),
@@ -52,53 +53,73 @@ export default function App() {
         />
 
         <StateContext.Provider value={{ toast: toast.current as ToastHandle }}>
-            {loading ?
-                <View style={styles.loaderContainer}>
-                    <ActivityIndicator
-                        size='large'
-                        color={colours.primary.hex()}
-                    />
-                </View> :
-                    <>
-                        <StatusBar
-                            style='light'
-                            backgroundColor={colours.background2.hex()}
+            <LoaderBoundary
+                loadingFallback={<LoadingFallback />}
+                errorFallback={<ErrorFallback />}
+            >
+                <Main />
+            </LoaderBoundary>
+        </StateContext.Provider>
+    </PortalProvider>;
+
+    function Main() {
+        const entities = entitiesResource.read();
+        
+        useMemo(() => {
+            useEntities.setState({ list: entities });
+        }, [entities]);
+
+        return <>
+            <StatusBar
+                style='light'
+                backgroundColor={colours.background2.hex()}
+            />
+
+            <View style={styles.container}>
+                <NavigationContainer theme={DarkTheme}>
+                    <Stack.Navigator
+                        initialRouteName={session ? 'Home' : 'User'}
+                        screenOptions={{
+                            headerShown: false
+                        }}
+                    >
+                        <Stack.Screen
+                            name='Home'
+                            component={HomeScreen}
                         />
 
-                        <View style={styles.container}>
-                            <NavigationContainer theme={DarkTheme}>
-                                <Stack.Navigator
-                                    initialRouteName={session ? 'Home' : 'User'}
-                                    screenOptions={{
-                                        headerShown: false
-                                    }}
-                                >
-                                    <Stack.Screen
-                                        name='Home'
-                                        component={HomeScreen}
-                                    />
+                        <Stack.Screen
+                            name='Map'
+                            component={MapScreen}
+                        />
 
-                                    <Stack.Screen
-                                        name='Map'
-                                        component={MapScreen}
-                                    />
+                        <Stack.Screen
+                            name='Camera'
+                            component={CameraScreen}
+                        />
 
-                                    <Stack.Screen
-                                        name='Camera'
-                                        component={CameraScreen}
-                                    />
+                        <Stack.Screen
+                            name='User'
+                            component={UserScreen}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </View>
+        </>;
+    }
 
-                                    <Stack.Screen
-                                        name='User'
-                                        component={UserScreen}
-                                    />
-                                </Stack.Navigator>
-                            </NavigationContainer>
-                        </View>
-                    </>
-            }
-        </StateContext.Provider>
-    </PortalProvider>
+    function LoadingFallback() {
+        return <View style={styles.loaderContainer}>
+            <ActivityIndicator size='large' color={colours.primary.hex()} />
+        </View>;
+    }
+
+    function ErrorFallback() {
+        return <View style={styles.error}>
+            <Text style={styles.errorTitle}>Uh oh!</Text>
+            <Text style={styles.errorText}>We've run into a problem loading entities from Home Assistant. Please try again later.</Text>
+        </View>;
+    }
 }
 
 const styles = StyleSheet.create({

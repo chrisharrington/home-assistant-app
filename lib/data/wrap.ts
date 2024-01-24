@@ -11,7 +11,7 @@ type Options<Return> = {
     readModifier?: (json: any) => Return;
 }
 
-export function wrapFetchPromise<Return>(uri: string, options?: Options<Return>) : WrapResult<Return> {
+export function wrapFetch<Return>(uri: string, options?: Options<Return>): WrapResult<Return> {
     let status: Status = Status.pending,
         response: Response | Error | Return;
 
@@ -38,6 +38,32 @@ export function wrapFetchPromise<Return>(uri: string, options?: Options<Return>)
                     throw response;
                 default:
                     return options?.readModifier ? options.readModifier(response as Response) : response as Return;
+            }
+        }
+    };
+}
+
+export function wrap<Return>(func: () => Promise<Return>) {
+    let status: Status = Status.pending,
+        response: Response | Error | Return;
+
+    const promise: Promise<void> = func().then(result => {
+        status = Status.success;
+        response = result;
+    }).catch(e => {
+        status = Status.error;
+        response = e;
+    });
+
+    return {
+        read: () => {
+            switch (status) {
+                case Status.pending:
+                    throw promise;
+                case Status.error:
+                    throw response;
+                default:
+                    return response as Return;
             }
         }
     };

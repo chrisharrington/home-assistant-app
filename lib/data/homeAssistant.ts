@@ -10,6 +10,7 @@ import { BaseEntity } from '@lib/entities/base';
 import { Person } from '@lib/entities';
 import { Session } from '@lib/common/session';
 import { getExpoPushTokenAsync, getPermissionsAsync, requestPermissionsAsync } from 'expo-notifications';
+import { wrap } from './wrap';
 
 let connection: Connection | null = null;
 
@@ -52,14 +53,17 @@ export const useEntities = create<EntityStore>((set, get) => ({
     })
 }));
 
-export async function connect() {
-    const auth = createLongLivedTokenAuth(Config.homeAssistantBaseUrl, EXPO_PUBLIC_HOME_ASSISTANT_API_KEY);
-    connection = await createConnection({ auth });
-    connection.subscribeEvents<StateChangeEvent>(useEntities.getState().update, 'state_changed');
+export function connect() {
+    return wrap(() => new Promise<BaseEntity[]>(async resolve => {
+        const auth = createLongLivedTokenAuth(Config.homeAssistantBaseUrl, EXPO_PUBLIC_HOME_ASSISTANT_API_KEY);
+        connection = await createConnection({ auth });
+        connection.subscribeEvents<StateChangeEvent>(useEntities.getState().update, 'state_changed');
 
-    subscribeEntities(connection, hassEntities => {
-        useEntities.setState({ list: Object.values(hassEntities).map(e => e as BaseEntity) });
-    });
+        subscribeEntities(connection, hassEntities => {
+            useEntities.setState({ list: Object.values(hassEntities).map(e => e as BaseEntity) });
+            resolve(Object.values(hassEntities).map(e => e as BaseEntity));
+        });
+    }));
 }
 
 export async function service(command: Command) {
