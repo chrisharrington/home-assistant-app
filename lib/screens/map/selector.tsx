@@ -1,13 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet } from '@lib/stylesheet';
 import colours from '@lib/colours';
 import { Person } from '@lib/entities/person';
 import Config from '@lib/config';
-import { MaterialIcons } from '@expo/vector-icons';
 
-interface Props {
+type Props = {
     people: Person[];
     onPersonChanged: (person: Person) => void;
     initialPerson?: Person;
@@ -55,7 +55,7 @@ export const Selector = ({ people, onPersonChanged, initialPerson } : Props) => 
 
                 <View style={styles.labelsContainer}>
                     <Text style={styles.name}>{person.attributes.friendly_name}</Text>
-                    <Text style={styles.location}>{person.state.split(' ').map(s => s.capitalize()).join(' ')}</Text>
+                    <Text style={styles.location}>{getLocation(person)}</Text>
                 </View>
             </Pressable>
 
@@ -78,6 +78,17 @@ export const Selector = ({ people, onPersonChanged, initialPerson } : Props) => 
         else if (index < 0)
             index = people.length - 1;
         setPersonIndex(index);
+    }
+
+    function getLocation(person: Person) {
+        switch (person.state) {
+            case 'not_home':
+                return '-';
+            case 'home':
+                return 'Home'
+            default:
+                return person.state.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+        }
     }
 }
 
