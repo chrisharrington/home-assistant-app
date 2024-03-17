@@ -58,7 +58,7 @@ export const HomeScreen = () => {
         
         <People people={entities.type<Person>(EntityType.Person)} />
         <Cameras cameraNames={['driveway', 'backyard']} />
-        {/* <Investments /> */}
+        <Investments />
     </ScrollView>;
 }
 

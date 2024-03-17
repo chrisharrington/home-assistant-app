@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { ActivityIndicator, StyleSheet, View, StatusBar as NativeStatusBar, LogBox, Text } from 'react-native';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -39,6 +39,8 @@ export default function App() {
 
     useEffect(() => {
         lockAsync(OrientationLock.PORTRAIT);
+
+
     }, []);
 
     return <PortalProvider>

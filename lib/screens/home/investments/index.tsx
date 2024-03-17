@@ -43,7 +43,10 @@ export const Investments = () => {
 
     function Balance() {
         const balance = balanceResource.read();
-        return <Text style={styles.amount}>{balance ? formatter.format(balance.amount) : '-'}</Text>;
+        return <>
+            <Text style={styles.amount}>{balance ? formatter.format(balance.amount) : '-'}</Text>
+            <Text>{balance ? balance.change : ''}</Text>
+        </>;
     }
 
     function Exchange (){

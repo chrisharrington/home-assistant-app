@@ -7,7 +7,8 @@
         "android": "expo start --android",
         "ios": "expo start --ios",
         "web": "expo start --web",
-        "build:remote": "eas build"
+        "build:remote": "eas build -p android",
+        "logs": "npx react-native log-android"
     },
     "dependencies": {
         "@gorhom/portal": "^1.0.14",
