@@ -1,7 +1,7 @@
 import * as Application from 'expo-application';
 import * as Device from 'expo-device';
 import { create } from 'zustand';
-import { createConnection, subscribeEntities, createLongLivedTokenAuth, HassEntity, Connection, callService } from 'home-assistant-js-websocket';
+import { createConnection, subscribeEntities, createLongLivedTokenAuth, HassEntity, Connection, callService, getAuth } from 'home-assistant-js-websocket';
 import Constants from 'expo-constants';
 import Config from '@lib/config';
 import { EXPO_PUBLIC_HOME_ASSISTANT_API_KEY } from '@env';
@@ -55,6 +55,7 @@ export const useEntities = create<EntityStore>((set, get) => ({
 
 export function connect() {
     return wrap(() => new Promise<BaseEntity[]>(async resolve => {
+        console.log(`Connecting to HA instance at ${Config.homeAssistantBaseUrl} with key "${EXPO_PUBLIC_HOME_ASSISTANT_API_KEY}".`);
         const auth = createLongLivedTokenAuth(Config.homeAssistantBaseUrl, EXPO_PUBLIC_HOME_ASSISTANT_API_KEY);
         connection = await createConnection({ auth });
         connection.subscribeEvents<StateChangeEvent>(useEntities.getState().update, 'state_changed');
@@ -97,6 +98,7 @@ export async function updateLocation(session: Session, location: Location) {
 }
 
 export async function register(user: Person): Promise<string> {
+    console.log(`Registering mobile device with HA for user ${user.entity_id}.`);
     let appData: { push_token: string | undefined, push_url: string | undefined } = { push_token: undefined, push_url: undefined };
 
     if (!__DEV__) {

@@ -21,7 +21,7 @@ import '@lib/common/date';
 
 LogBox.ignoreLogs(['new NativeEventEmitter()']);
 
-const Stack = createNativeStackNavigator<StackParamsList>();
+// const Stack = createNativeStackNavigator<StackParamsList>();
 
 const entitiesResource = connect();
 
@@ -39,8 +39,6 @@ export default function App() {
 
     useEffect(() => {
         lockAsync(OrientationLock.PORTRAIT);
-
-
     }, []);
 
     return <PortalProvider>
@@ -73,6 +71,10 @@ export default function App() {
 
             <View style={styles.container}>
                 <NavigationContainer theme={DarkTheme}>
+                    <HomeScreen />
+                </NavigationContainer>
+
+                {/* <NavigationContainer theme={DarkTheme}>
                     <Stack.Navigator
                         initialRouteName={session ? 'Home' : 'User'}
                         screenOptions={{
@@ -99,7 +101,7 @@ export default function App() {
                             component={UserScreen}
                         />
                     </Stack.Navigator>
-                </NavigationContainer>
+                </NavigationContainer> */}
             </View>
         </>;
     }

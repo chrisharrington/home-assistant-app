@@ -40,7 +40,8 @@ export default {
                 }
             ],
             'expo-font',
-            'expo-secure-store'
+            'expo-secure-store',
+            'expo-router'
         ],
         extra: {
             eas: {
