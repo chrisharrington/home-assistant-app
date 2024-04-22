@@ -37,7 +37,7 @@ export const CameraComponent = ({ cameraName }: Props) => {
     >
         <VideoPlayer
             ref={cameraRef}
-            uri={`${Config.videoBaseUrl}/${cameraName}/stream.m3u8`}
+            uri={`${Config.videoBaseUrl}/api/stream.mp4?src=${cameraName}&mp4=flac`}
             style={[styles.video, { width: cameraWidth === 0 ? undefined : cameraWidth }]}
             userName={EXPO_PUBLIC_VIDEO_USER_NAME}
             password={EXPO_PUBLIC_VIDEO_PASSWORD}
