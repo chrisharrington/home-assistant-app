@@ -6,7 +6,6 @@ import dayjs, { Dayjs } from 'dayjs';
 import { StyleSheet } from '@lib/stylesheet';
 import { StateContext } from '@lib/context';
 import { FrigateEvent } from '@lib/models/frigate';
-import { ScreenProps } from '@lib/models/navigation';
 import { getEvents } from '@lib/data/frigate';
 import colours from '@lib/colours';
 import { Actions as VideoActions, VideoPlayer } from '@lib/components/video';
@@ -17,11 +16,11 @@ import { Camera } from '@lib/entities/camera';
 
 type Props = {
 
-} & ScreenProps<{ cameraName: string }>
+}
 
 export const CameraScreen = (props: Props) => {
     const { toast } = useContext(StateContext),
-        cameraName = props.route?.params?.cameraName,
+        cameraName = 'driveway',//props.route?.params?.cameraName,
         [events, setEvents] = useState<FrigateEvent[]>([]),
         [date, setDate] = useState<Dayjs>(dayjs()),
         [loading, setLoading] = useState<boolean>(false),

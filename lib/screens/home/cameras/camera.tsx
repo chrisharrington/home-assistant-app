@@ -1,13 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useBackHandler } from '@react-native-community/hooks';
 import { EXPO_PUBLIC_VIDEO_PASSWORD, EXPO_PUBLIC_VIDEO_USER_NAME } from '@env';
 import { StyleSheet } from '@lib/stylesheet';
 import colours from '@lib/colours';
 import Config from '@lib/config';
 import { Actions, VideoPlayer } from '@lib/components/video';
-import { StackNavigationProps } from '@lib/models/navigation';
 import { SlideUp } from '@lib/components/slideUp';
 import { Button } from '@lib/components/button';
 
@@ -16,8 +14,7 @@ type Props = {
 }
 
 export const CameraComponent = ({ cameraName }: Props) => {
-    const { navigate } = useNavigation<StackNavigationProps>(),
-        cameraRef = useRef<Actions>(null),
+    const cameraRef = useRef<Actions>(null),
         [menuVisible, setMenuVisible] = useState<boolean>(false),
         [cameraWidth, setCameraWidth] = useState<number>(0);
 
@@ -51,7 +48,7 @@ export const CameraComponent = ({ cameraName }: Props) => {
                     style={styles.button}
                     label='Events'
                     action={() => {
-                        navigate('Camera', { cameraName });
+                        // navigate('Camera', { cameraName });
                         setMenuVisible(false);
                     }}
                 />

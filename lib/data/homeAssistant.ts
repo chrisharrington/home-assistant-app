@@ -32,8 +32,9 @@ type Location = {
 
 type EntityStore = {
     list: BaseEntity[];
-    id: <TEntityType>(id: string) => TEntityType | undefined;
-    type: <TEntityType>(type: EntityType) => TEntityType[];
+    id: <TEntityType = BaseEntity>(id: string) => TEntityType | undefined;
+    type: <TEntityType = BaseEntity>(type: EntityType) => TEntityType[];
+    filter: <TEntityType = BaseEntity>(predicate: (entity: BaseEntity) => boolean) => TEntityType[];
     update: (event: StateChangeEvent) => void;
 }
 
@@ -41,6 +42,8 @@ export const useEntities = create<EntityStore>((set, get) => ({
     list: [],
     id: <TEntityType>(id: string) => get().list.find(entity => entity.entity_id === id) as TEntityType | undefined,
     type: <TEntityType>(type: EntityType) => get().list.filter(entity => entity.entity_id.split('.')[0] === type) as TEntityType[],
+    filter: <TEntityType>(predicate: (entity: BaseEntity) => boolean) => get().list.filter(predicate) as TEntityType[],
+    setEntities: (entities: BaseEntity[]) => set({ list: entities }),
     update: (event: StateChangeEvent) => set(state => {
         const index = state.list.findIndex(entity => entity.entity_id === event.entity_id);
         if (index === -1)
@@ -61,8 +64,9 @@ export function connect() {
         connection.subscribeEvents<StateChangeEvent>(useEntities.getState().update, 'state_changed');
 
         subscribeEntities(connection, hassEntities => {
-            useEntities.setState({ list: Object.values(hassEntities).map(e => e as BaseEntity) });
-            resolve(Object.values(hassEntities).map(e => e as BaseEntity));
+            const list = Object.values(hassEntities).map(e => e as BaseEntity);
+            useEntities.setState({ list });
+            resolve(list);
         });
     }));
 }

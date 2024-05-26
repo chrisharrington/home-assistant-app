@@ -1,8 +1,6 @@
 import React from 'react';
 import { Pressable, View, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Person } from '@lib/entities';
-import { StackNavigationProps } from '@lib/models/navigation';
 import Config from '@lib/config';
 import { StyleSheet } from '@lib/stylesheet';
 import colours from '@lib/colours';
@@ -12,12 +10,10 @@ type Props = {
 }
 
 export const PersonComponent = ({ person } : Props) => {
-    const navigation = useNavigation<StackNavigationProps>();
-
     return <Pressable
         key={person.entity_id}
         style={({ pressed }) => [styles.person, { opacity: pressed ? 0.7 : 1 }]}
-        onPress={() => navigation.navigate('Map', { personName: person.entity_id })}
+        // onPress={() => navigation.navigate('Map', { personName: person.entity_id })}
     >
         <Image
             style={styles.image}

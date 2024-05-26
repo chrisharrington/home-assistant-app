@@ -4,7 +4,6 @@ import { View, StyleSheet, Image, Dimensions } from 'react-native';
 import MapView, { Region } from 'react-native-maps';
 import Supercluster from 'supercluster';
 import { EntityType } from '@lib/models/entity';
-import { ScreenProps, StackNavigationProps } from '@lib/models/navigation';
 import { Person } from '@lib/entities';
 import colours from '@lib/colours';
 import Config from '@lib/config';
@@ -14,8 +13,8 @@ import MapStyle from './mapStyle.json';
 import { useEntities } from '@lib/data/homeAssistant';
 
 type MapProps = {
-    navigation: StackNavigationProps;
-} & ScreenProps<{ personName: string }>
+    
+}
 
 type Cluster = {
     latitude: number;
@@ -27,7 +26,8 @@ export const MapScreen = (props: MapProps) => {
     const map = createRef<MapView>(),
         entities = useEntities(),
         people = entities.type<Person>(EntityType.Person),
-        person = people.find(p => p.entity_id === props.route?.params?.personName) || people[0],
+        // person = people.find(p => p.entity_id === 'chris?'props.route?.params?.personName) || people[0],
+        person = people[0],
         [selectedPerson, setSelectedPerson] = useState<Person>(person),
         clusterIndex = useRef<Supercluster | null>(null),
         [clusters, setClusters] = useState<Cluster[]>([]);

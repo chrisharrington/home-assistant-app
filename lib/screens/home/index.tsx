@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { StyleSheet } from '@lib/stylesheet';
 import { Person } from '@lib/entities';
 import { EntityType } from '@lib/models/entity';
@@ -19,8 +19,8 @@ export const HomeScreen = () => {
         climateUpstairs = entities.id<Climate>('climate.upstairs');
 
     return <ScrollView style={styles.container} contentContainerStyle={{ gap: 15, padding: 15 }}>
-        <Header />
-        <Quote />
+        {/* <Header />
+        <Quote /> */}
 
         <Floor
             name='Basement'

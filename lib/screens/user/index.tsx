@@ -5,16 +5,14 @@ import colours from '@lib/colours';
 import { GlobalStyles } from '@lib/styles';
 import { useEntities } from '@lib/data/homeAssistant';
 import { Person } from '@lib/entities';
-import { EntityType, StackNavigationProps } from '@lib/models';
+import { EntityType } from '@lib/models';
 import { User } from './user';
-import { useNavigation } from '@react-navigation/native';
 import { useSession } from '@lib/common/session';
 import { StateContext } from '@lib/context';
 
 export const UserScreen = () => {
     const users = useEntities().type<Person>(EntityType.Person),
         { setUser } = useSession(),
-        { navigate } = useNavigation<StackNavigationProps>(),
         [loading, setLoading] = useState<string | null>(null),
         { toast } = useContext(StateContext);
         
@@ -38,7 +36,7 @@ export const UserScreen = () => {
         try {
             setLoading(user.entity_id);
             await setUser(user);
-            navigate('Home', {});
+            // navigate('Home', {});
         } catch (e) {
             toast.error('An error has occurred while selecting the user. Please try again later.');
             console.error(e);

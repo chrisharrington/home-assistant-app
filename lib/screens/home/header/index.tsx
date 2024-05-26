@@ -7,17 +7,17 @@ import { getWeather } from '@lib/data/external/weather';
 import { LoaderBoundary } from '@lib/components/loaderBoundary';
 import { useSession } from '@lib/common/session';
 import Config from '@lib/config';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProps } from '@lib/models';
 
 const weatherResource = getWeather();
 
 export const Header = () => {
-    const { session } = useSession(),
-        { navigate } = useNavigation<StackNavigationProps>();
+    const { session } = useSession();
 
     return <View style={styles.container}>
-        <Pressable style={styles.user} onPress={() => navigate('User', {})}>
+        <Pressable
+            style={styles.user}
+            // onPress={() => navigate('User', {})}
+        >
             {session ? <Image
                 source={{ uri: Config.homeAssistantBaseUrl + session.attributes.entity_picture }}
                 style={styles.userImage}

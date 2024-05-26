@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const Floor = ({ name, entityIds, temperature, humidity, onPress } : Props) => {
-    const floorEntities = useEntities().list
+    const floorEntities = useEntities()
         .filter(entity => entityIds.includes(entity.entity_id))
         .sort((first, second) => (first.attributes.friendly_name || '').localeCompare(second.attributes.friendly_name || ''));
 
