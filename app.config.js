@@ -5,7 +5,7 @@ export default {
         version: '1.0.0',
         userInterfaceStyle: 'light',
         splash: {
-            backgroundColor: '#0d131f'
+            backgroundColor: '#191f2b'
         },
         assetBundlePatterns: [
             '**/*'
@@ -24,10 +24,6 @@ export default {
                     apiKey: process.env['EXPO_PUBLIC_GOOGLE_MAPS_API_KEY']
                 }
             }
-        },
-        androidStatusBar: {
-            barStyle: 'light-content',
-            backgroundColor: '#151E32'
         },
         runtimeVersion: {
             policy: 'sdkVersion'

@@ -9,7 +9,7 @@ type Props = {
     title?: string;
 }
 
-export const Tile = ({ onPress, style, children } : PropsWithChildren<Props>) => (
+export const Tile = ({ onPress, style, children }: PropsWithChildren<Props>) => (
     <Pressable
         onPress={onPress}
         style={({ pressed }) => [styles.tile, style, onPress ? dynamicStyles.pressed(pressed) : undefined]}
@@ -26,9 +26,18 @@ const styles = StyleSheet.create({
     tile: {
         flex: 1,
         borderRadius: 4,
-        padding: 15,
+        padding: 20,
         overflow: 'hidden',
-        backgroundColor: colours.background2.hex()
+        backgroundColor: colours.background2.hex(),
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity: 0.37,
+        shadowRadius: 7.49,
+
+        elevation: 12,
     },
 
     title: {

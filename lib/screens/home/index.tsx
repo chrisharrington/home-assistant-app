@@ -18,7 +18,7 @@ export const HomeScreen = () => {
         climateDownstairs = entities.id<Climate>('climate.downstairs'),
         climateUpstairs = entities.id<Climate>('climate.upstairs');
 
-    return <ScrollView style={styles.container} contentContainerStyle={{ gap: 15, padding: 15 }}>
+    return <ScrollView style={styles.container} contentContainerStyle={{ gap: 15, padding: 20 }}>
         {/* <Header />
         <Quote /> */}
 

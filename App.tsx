@@ -14,6 +14,8 @@ import { MapScreen } from '@lib/screens/map';
 import { UserScreen } from '@lib/screens/user';
 import { LoaderBoundary } from '@lib/components/loaderBoundary';
 import { connect, useEntities } from '@lib/data/homeAssistant';
+import ExpoStatusBar from 'expo-status-bar/build/ExpoStatusBar';
+
 import '@lib/common/date';
 
 LogBox.ignoreLogs(['new NativeEventEmitter()']);
@@ -37,9 +39,8 @@ export default function App() {
     }, []);
 
     return <PortalProvider>
-        <Toast
-            ref={toast}
-        />
+        <Toast ref={toast} />
+        <ExpoStatusBar style='light' backgroundColor={colours.background1.hex()} />
 
         <StateContext.Provider value={{ toast: toast.current as ToastHandle }}>
             <LoaderBoundary
@@ -57,7 +58,7 @@ export default function App() {
         return <>
             <StatusBar
                 style='light'
-                backgroundColor={colours.background2.hex()}
+                backgroundColor={colours.background1.hex()}
             />
 
             <View style={styles.container}>
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     error: {
         flex: 1,
         backgroundColor: colours.background1.hex(),
-        padding: 25,
+        padding: 20,
         marginTop: NativeStatusBar.currentHeight
     },
 

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colours.primary.hex(),
         borderRadius: 4,
-        padding: 15,
+        padding: 20,
         overflow: 'hidden'
     },
 

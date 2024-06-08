@@ -1,8 +1,6 @@
 import Color from 'color';
 
-const background = Color('#0d131f'),
-    background2 = background.lighten(0.6),
-    primary = Color('#f7cd25');
+const primary = Color('#f7cd25');
 
 export default {
     primary,
@@ -14,8 +12,8 @@ export default {
     textNegative: Color('red'),
     error: Color('#fd413c'),
     success: Color('#35bd18'),
-    background1: Color('#0d131f'),
-    background2,
+    background1: Color('#191f2b'),
+    background2: Color('#2b303d'),
     background3: Color('black'),
     button1: Color('#fde033'),
     button2: Color('#fcac13'),
