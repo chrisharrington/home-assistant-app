@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, Pressable, ActivityIndicator } from 'react-native';
+import { View, Text, Pressable, ActivityIndicator, Dimensions } from 'react-native';
 import dayjs from 'dayjs';
 import { StyleSheet } from '@lib/stylesheet';
 import colours from '@lib/colours';
@@ -41,15 +41,16 @@ export const EntityButton = ({ entity } : Props) => {
     function getIconFromEntity(entity: BaseEntity) {
         const colour = state ? colours.background1.hex() : colours.text1.hex();
         if (loading)
-            return <ActivityIndicator size={24} color={colour} />;
+            return <ActivityIndicator size={20} color={colour} />;
             
         switch (entity.attributes.icon) {
             case 'mdi:lightbulb':
-                return <MaterialCommunityIcons name='lightbulb-outline' size={24} color={colour} />;
+            case 'mdi:lightbulb-group':
+                return <MaterialCommunityIcons name='lightbulb-outline' size={20} color={colour} />;
             case 'mdi:fireplace':
-                return <MaterialCommunityIcons name='fireplace' size={24} color={colour} />;
+                return <MaterialCommunityIcons name='fireplace' size={20} color={colour} />;
             case 'mdi:radiator':
-                return <MaterialCommunityIcons name='radiator' size={24} color={colour} />;
+                return <MaterialCommunityIcons name='radiator' size={20} color={colour} />;
             default:
                 return <></>;
         }
@@ -86,14 +87,14 @@ export const EntityButton = ({ entity } : Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '48.8%',
+        flexBasis: 150,
+        flexGrow: 1,
         flexDirection: 'row',
         borderRadius: GlobalStyles.borderRadius,
         paddingVertical: GlobalStyles.spacing*3/4,
         paddingLeft: GlobalStyles.spacing,
         paddingRight: GlobalStyles.spacing - 4,
-        backgroundColor: colours.background1.hex(),
-        marginTop: GlobalStyles.spacing/2
+        backgroundColor: colours.background1.hex()
     },
 
     containerActive: {

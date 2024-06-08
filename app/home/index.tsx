@@ -13,15 +13,12 @@ import { Header } from './header';
 import { Floor } from './floor';
 import { Climate } from '@lib/entities/climate';
 
-export const HomeScreen = () => {
+export default function() {
     const entities = useEntities(),
         climateDownstairs = entities.id<Climate>('climate.downstairs'),
         climateUpstairs = entities.id<Climate>('climate.upstairs');
 
     return <ScrollView style={styles.container} contentContainerStyle={{ gap: 15, padding: 20 }}>
-        {/* <Header />
-        <Quote /> */}
-
         <Floor
             name='Basement'
             entityIds={[
@@ -46,15 +43,18 @@ export const HomeScreen = () => {
             temperature={climateDownstairs?.attributes.current_temperature || 0}
             humidity={climateDownstairs?.attributes.current_humidity || 0}
             onPress={() => {}}
-        />
+        />*/}
         
         <Floor
             name='Upstairs'
-            entityIds={[]}
+            entityIds={[
+                'light.group_bonus_room',
+                'light.kids_bathroom'
+            ]}
             temperature={climateUpstairs?.attributes.current_temperature || 0}
             humidity={climateUpstairs?.attributes.current_humidity || 0}
             onPress={() => {}}
-        /> */}
+        />
         
         <People people={entities.type<Person>(EntityType.Person)} />
         <Cameras cameraNames={['driveway', 'backyard']} />

@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
+        gap: GlobalStyles.spacing/2,
         justifyContent: 'space-between'
     }
 });
