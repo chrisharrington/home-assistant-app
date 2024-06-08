@@ -55,7 +55,6 @@ export const Floor = ({ name, entityIds, temperature, humidity, onPress } : Prop
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        gap: 1
     },
 
     header: {
@@ -84,6 +83,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: GlobalStyles.spacing/2,
+        marginTop: GlobalStyles.spacing/2,
         justifyContent: 'space-between'
     }
 });
