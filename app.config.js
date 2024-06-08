@@ -2,6 +2,7 @@ export default {
     expo: {
         name: 'Haus',
         slug: 'haus',
+        scheme: 'haus',
         version: '1.0.0',
         userInterfaceStyle: 'light',
         splash: {
