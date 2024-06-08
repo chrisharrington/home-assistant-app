@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet } from '@lib/stylesheet';
 import colours from '@lib/colours';
 import { Tile } from '@lib/components/tile';
 import { useEntities } from '@lib/data/homeAssistant';
-import { SensorCount } from './sensorCount';
+import { Count } from '@lib/components/count';
 import { GlobalStyles } from '@lib/styles';
 import { EntityButton } from './entityButton';
 
@@ -27,14 +28,13 @@ export const Floor = ({ name, entityIds, temperature, humidity, onPress } : Prop
                 <Text style={styles.name}>{name}</Text>
 
                 <View style={styles.sensors}>
-                    <SensorCount
-                        materialCommunityIconName='thermometer'
+                    <Count
                         text={`${temperature}°`}
+                        icon={<MaterialCommunityIcons name='thermometer' size={20} color={colours.primary.hex()} />}
                     />
 
-                    <SensorCount
-                        materialCommunityIconName='water-outline'
-                        iconSizeModifier={2}
+                    <Count
+                        icon={<MaterialCommunityIcons name='water-outline' size={18} color={colours.primary.hex()} />}
                         text={`${humidity}%`}
                     />
                 </View>

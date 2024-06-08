@@ -12,6 +12,7 @@ import { useEntities } from '@lib/data/homeAssistant';
 import { Header } from './header';
 import { Floor } from './floor';
 import { Climate } from '@lib/entities/climate';
+import { Map } from './map';
 
 export default function() {
     const entities = useEntities(),
@@ -19,7 +20,7 @@ export default function() {
         climateUpstairs = entities.id<Climate>('climate.upstairs');
 
     return <ScrollView style={styles.container} contentContainerStyle={{ gap: 15, padding: 20, paddingTop: 0 }}>
-        <Floor
+        {/* <Floor
             name='Basement'
             entityIds={[
                 'switch.basement_bar',
@@ -35,7 +36,7 @@ export default function() {
             temperature={climateDownstairs?.attributes.current_temperature || 0}
             humidity={climateDownstairs?.attributes.current_humidity || 0}
             onPress={() => {}}
-        />
+        /> */}
         
         {/* <Floor
             name='Main Floor'
@@ -45,7 +46,7 @@ export default function() {
             onPress={() => {}}
         />*/}
         
-        <Floor
+        {/* <Floor
             name='Upstairs'
             entityIds={[
                 'light.group_bonus_room',
@@ -54,11 +55,12 @@ export default function() {
             temperature={climateUpstairs?.attributes.current_temperature || 0}
             humidity={climateUpstairs?.attributes.current_humidity || 0}
             onPress={() => {}}
-        />
+        /> */}
         
-        <People people={entities.type<Person>(EntityType.Person)} />
-        <Cameras cameraNames={['driveway', 'backyard']} />
-        <Investments />
+        <Map />
+        {/* <People people={entities.type<Person>(EntityType.Person)} /> */}
+        {/* <Cameras cameraNames={['driveway', 'backyard']} />
+        <Investments /> */}
     </ScrollView>;
 }
 
