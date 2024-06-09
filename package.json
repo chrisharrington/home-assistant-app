@@ -4,8 +4,9 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "npx expo start --dev-client",
-    "build": "eas build --profile development --platform android --local --output dev-build.apk",
-    "build:remote": "eas build -p android",
+    "build:dev": "dotenv -- eas build --profile development --platform android --local --output dev-build.apk",
+    "build:prod": "dotenv -- eas build --profile production --platform android --local --output prod-build.apk",
+    "build:prod:remote": "eas build -p android --profile production --clear-cache",
     "logs": "npx react-native log-android"
   },
   "dependencies": {

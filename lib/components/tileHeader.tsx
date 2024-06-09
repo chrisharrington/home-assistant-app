@@ -29,8 +29,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexGrow: 1,
         color: Colours.text1.hex(),
-        fontSize: 20,
-        alignSelf: 'flex-start'
+        fontSize: 24,
+        alignSelf: 'flex-start',
+        fontFamily: 'Lora'
     },
 
     info: {

@@ -15,10 +15,11 @@ export const CustomMarker = ({ content, latitude, longitude, width } : Props) =>
     <Marker
         coordinate={{ latitude, longitude }}
         anchor={{ x: 0.5, y: 1 }}
+        tracksViewChanges={false}
     >
         <View style={[styles.container, { width }]}>
             {content}
-            <AntDesign style={styles.arrow} name='caretdown' size={12} color={colours.background3.hex()} />
+            <AntDesign style={styles.arrow} name='caretdown' size={12} color={colours.background1.hex()} />
         </View>
     </Marker>
 );
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
 
     arrow: {
         position: 'absolute',
-        bottom: 3,
+        bottom: 0,
         left: '50%',
         transform: [{ translateX: -6 }]
     }

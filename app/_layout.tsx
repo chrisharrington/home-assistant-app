@@ -11,7 +11,6 @@ import colours from '@lib/colours';
 import { StateContext } from '@lib/context';
 import { LoaderBoundary } from '@lib/components/loaderBoundary';
 import { connect } from '@lib/data/homeAssistant';
-import ExpoStatusBar from 'expo-status-bar/build/ExpoStatusBar';
 import '@lib/common/date';
 
 LogBox.ignoreLogs(['new NativeEventEmitter()']);
@@ -23,9 +22,10 @@ export default function App() {
         toast = useRef<ToastHandle>(null);
 
     useFonts({
-        'Open Sans': require('@assets/OpenSans.ttf'),
         'Lato Regular': require('@assets/Lato-Regular.ttf'),
-        'Lato Bold': require('@assets/Lato-Bold.ttf')
+        'Lato Bold': require('@assets/Lato-Bold.ttf'),
+        'Lora': require('@assets/Lora.ttf'),
+        'Open Sans': require('@assets/OpenSans.ttf')
     });
 
     // useLocation();
@@ -36,7 +36,7 @@ export default function App() {
 
     return <PortalProvider>
         <Toast ref={toast} />
-        <ExpoStatusBar style='light' backgroundColor={colours.background1.hex()} />
+        <StatusBar style='light' backgroundColor={colours.background1.hex()} />
 
         <StateContext.Provider value={{ toast: toast.current as ToastHandle }}>
             <LoaderBoundary
@@ -52,10 +52,6 @@ export default function App() {
         entitiesResource.read();
 
         return <>
-            <StatusBar
-                style='light'
-                backgroundColor={colours.background1.hex()}
-            />
 
             <View style={styles.container}>
                 <Slot />

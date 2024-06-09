@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { StyleSheet } from '@lib/stylesheet';
 import Colours from '@lib/colours';
@@ -9,6 +9,7 @@ import { useEntities } from '@lib/data/homeAssistant';
 import { Person } from '@lib/entities';
 import { EntityType } from '@lib/models';
 import { Count } from '@lib/components/count';
+import { PeopleMap } from '@lib/components/peopleMap';
 
 type Props = {
 
@@ -24,6 +25,8 @@ export function Map({ }: Props) {
                     icon={<FontAwesome6 name='house-chimney' size={14} color={Colours.primary.hex()} />}
                 />
             </TileHeader>
+
+            <PeopleMap people={people} />
         </Tile>
     </Pressable>;
 
@@ -34,7 +37,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
 
-    homeCount: {
-
+    map: {
+        flex: 1
     }
 });
