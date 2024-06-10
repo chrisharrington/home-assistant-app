@@ -7,6 +7,7 @@ import { Person } from '@lib/entities';
 import colours from '@lib/colours';
 import { Selector } from './selector';
 import { useEntities } from '@lib/data/homeAssistant';
+import { PeopleMap } from '@lib/components/peopleMap';
 
 type MapProps = {
 
@@ -18,7 +19,7 @@ type Cluster = {
     entityNames: string[];
 }
 
-export const MapScreen = (props: MapProps) => {
+export default function(props: MapProps) {
     const map = createRef<MapView>(),
         entities = useEntities(),
         people = entities.type<Person>(EntityType.Person),
@@ -46,14 +47,17 @@ export const MapScreen = (props: MapProps) => {
 
     }, [people.length]);
 
-    return <View>
+    return <View style={{ flex: 1 }}>
         <Selector
             people={people}
             initialPerson={people[0]}
             onPersonChanged={setSelectedPerson}
         />
 
-        {/* map here */}
+        <PeopleMap
+            people={people}
+            readOnly={false}
+        />
     </View>;
 }
 

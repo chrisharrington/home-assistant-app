@@ -1,6 +1,6 @@
 import React from 'react';
-import { Pressable } from 'react-native';
 import { FontAwesome6 } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import { StyleSheet } from '@lib/stylesheet';
 import Colours from '@lib/colours';
 import { Tile } from '@lib/components/tile';
@@ -17,27 +17,28 @@ type Props = {
 
 export function Map({ }: Props) {
     const people = useEntities().type<Person>(EntityType.Person);
-    return <Pressable>
-        <Tile style={styles.container}>
-            <TileHeader label='Map'>
-                <Count
-                    text={`${people.filter(p => p.state === 'home').length} / ${people.length}`}
-                    icon={<FontAwesome6 name='house-chimney' size={14} color={Colours.primary.hex()} />}
-                />
-            </TileHeader>
+    return <Tile style={styles.tile} onPress={() => router.navigate('map')}>
+        <TileHeader label='Map'>
+            <Count
+                text={`${people.filter(p => p.state === 'home').length} / ${people.length}`}
+                icon={<FontAwesome6 name='house-chimney' size={14} color={Colours.primary.hex()} />}
+            />
+        </TileHeader>
 
-            <PeopleMap people={people} />
-        </Tile>
-    </Pressable>;
-
+        <PeopleMap
+            people={people}
+            readOnly
+        />
+    </Tile>;
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'red'
     },
 
-    map: {
+    tile: {
         flex: 1
     }
 });

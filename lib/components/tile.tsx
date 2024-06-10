@@ -19,7 +19,7 @@ export const Tile = ({ onPress, style, children }: PropsWithChildren<Props>) => 
 );
 
 const dynamicStyles = StyleSheet.dynamic({
-    pressed: (pressed: boolean) => ({ opacity: pressed ? 0.7 : 1 })
+    pressed: (pressed: boolean) => ({ opacity: pressed ? 0.9 : 1 })
 });
 
 const styles = StyleSheet.create({

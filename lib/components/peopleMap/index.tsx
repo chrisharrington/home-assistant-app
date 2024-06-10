@@ -13,6 +13,7 @@ import { GlobalStyles } from '@lib/styles';
 
 type Props = {
     people: Person[];
+    readOnly: boolean;
 }
 
 type Cluster = {
@@ -21,7 +22,7 @@ type Cluster = {
     entityNames: string[];
 }
 
-export function PeopleMap({ people }: Props) {
+export function PeopleMap({ people, readOnly }: Props) {
     const map = createRef<MapView>(),
         entities = useEntities(),
         clusterIndex = useRef<Supercluster | null>(null),
@@ -41,6 +42,7 @@ export function PeopleMap({ people }: Props) {
         })));
 
         clusterIndex.current = index;
+        console.log('lat/lng:', filtered.map(p => [p.attributes.latitude, p.attributes.longitude]));
     }, [people]);
 
     const region = useMemo(() => {
@@ -66,8 +68,8 @@ export function PeopleMap({ people }: Props) {
             initialRegion={region}
             customMapStyle={MapStyle}
             style={styles.map}
-            zoomEnabled={false}
-            scrollEnabled={false}
+            zoomEnabled={!readOnly}
+            scrollEnabled={!readOnly}
             onRegionChange={(region: Region) => updateClusters(region.longitudeDelta)}
             onMapReady={() => updateClusters()}
         >
